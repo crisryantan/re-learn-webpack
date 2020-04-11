@@ -1,8 +1,10 @@
 import nav from "./nav";
-import * as GSAP from 'gsap'
+const getGSAP = () => import('gsap');
   // static code splitting, vanilla way to lazy load any of your code
   // providing a path to the actual module itself
 const getFooter = () => import("./footer");
+// code splitting named exports
+const getLodashUniq = () => import("lodash-es/uniq")
 import makeButton from "./button";
 import { makeColorStyle } from "./button-styles";
 import makeImage from "./image";
@@ -20,6 +22,13 @@ button.addEventListener('click', e => {
     document.body.appendChild(footerModule.footer);
   });
 
+  getLodashUniq().then(uniq => {
+    console.log(uniq)
+  })
+
+  getGSAP().then(gsap => {
+    console.log(gsap)
+  })
 });
 
 document.body.appendChild(button);
