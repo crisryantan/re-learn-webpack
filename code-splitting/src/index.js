@@ -1,4 +1,7 @@
 import nav from "./nav";
+import * as GSAP from 'gsap'
+  // static code splitting, vanilla way to lazy load any of your code
+  // providing a path to the actual module itself
 const getFooter = () => import("./footer");
 import makeButton from "./button";
 import { makeColorStyle } from "./button-styles";
