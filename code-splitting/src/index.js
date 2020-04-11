@@ -12,6 +12,9 @@ import imageUrl from "./webpack-logo.jpg";
 import css from "./footer.css";
 import buttonStyles from "./button.css";
 
+
+const setButtonStyle = (color) => import(`./button-styles/${color}.js`);
+
 const image = makeImage(imageUrl);
 const button = makeButton("Yay! A Button!");
 button.style = makeColorStyle("cyan");
@@ -22,12 +25,14 @@ button.addEventListener('click', e => {
     document.body.appendChild(footerModule.footer);
   });
 
-  getLodashUniq().then(uniq => {
-    console.log(uniq)
-  })
-
   getGSAP().then(gsap => {
     console.log(gsap)
+  })
+
+  // set on runtime condition
+  // dynamic code splitting
+  setButtonStyle('red').then(styleStr => {
+    button.style = styleStr.default;
   })
 });
 
