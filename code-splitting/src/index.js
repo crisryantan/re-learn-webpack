@@ -2,7 +2,7 @@ import nav from "./nav";
 const getGSAP = () => import('gsap');
   // static code splitting, vanilla way to lazy load any of your code
   // providing a path to the actual module itself
-const getFooter = () => import("./footer");
+const getFooter = () => import(/* webpackChunkName: "footer" */ "./footer");
 // code splitting named exports
 const getLodashUniq = () => import("lodash-es/uniq")
 import makeButton from "./button";
@@ -12,8 +12,11 @@ import imageUrl from "./webpack-logo.jpg";
 import css from "./footer.css";
 import buttonStyles from "./button.css";
 
-
-const setButtonStyle = (color) => import(`./button-styles/${color}.js`);
+if (process.env.NODE_ENV === "development") {
+    const setButtonStyle = (color) => import(/* webpackMode: "lazy-once" */`./button-styles/${color}.js`);
+} else {
+    const setButtonStyle = (color) => import(`./button-styles/${color}.js`);
+}
 
 const image = makeImage(imageUrl);
 const button = makeButton("Yay! A Button!");
